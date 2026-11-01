@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -105,7 +104,7 @@ body.pc .nd:not(.lock):hover{transform:translateY(-3px)}
 #thead .hy{font-weight:800;color:#ffd24a}
 #thead button{min-width:0;padding:6px 12px}
 #pcont{flex:1;min-height:0;height:auto;padding:0;overflow:auto;cursor:grab;overscroll-behavior:contain}
-#cv2{position:relative;width:1400px;height:1440px;background:radial-gradient(circle at 700px 700px,rgba(60,200,120,.14),transparent 620px)}
+#cv2{position:relative;width:1700px;height:1500px;background:radial-gradient(circle at 700px 700px,rgba(60,200,120,.14),transparent 620px)}
 #tsvg,#tnodes{position:absolute;inset:0;width:100%;height:100%}
 #tsvg{pointer-events:none}
 #tsvg line{stroke:#2f4a3a;stroke-width:4;stroke-linecap:round}
@@ -132,29 +131,47 @@ body.pc .tn:not(.fog):hover{transform:scale(1.12)}
 #info .tx{flex:1;min-width:0;font-size:13px;line-height:1.25}
 #info b{font-size:15px}
 #info button{min-width:96px}
+.soon{position:relative;padding-top:12px}
+.soon span{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:12px;font-weight:800;color:#ffd24a;background:#3a2b0c;padding:1px 10px;border-radius:8px;z-index:1}
+#mMp{width:100%;background:#8b8b8b;opacity:.6}
+#cred{display:none;flex-direction:column;gap:12px;width:min(340px,100%);background:rgba(255,250,235,.94);color:#3b2f14;padding:18px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.35);text-align:center}
+#cred .cr b{display:block;font-size:17px}
+#cred .cr span{font-size:13px;color:#6b5a30}
+#cred small{font-size:11px;color:#8a7a52}
+#best{position:fixed;inset:0;z-index:7;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:16px}
+#best.show{display:flex}
+#bpanel{background:var(--card);color:var(--tx);padding:18px;border-radius:18px;width:min(420px,100%);max-height:90%;overflow:auto;display:flex;flex-direction:column;gap:10px;animation:to .4s both}
+.hi{display:flex;gap:12px;align-items:center;padding:8px;border-radius:12px;background:rgba(0,0,0,.08)}
+.hi .ic{font-size:34px}
+.hi.un{opacity:.5}
+.hi b{display:block}
+.hi small{color:var(--mut)}
 </style>
 </head>
 <body>
 <h1>🪡 Игла в стоге сена <button id="mute" style="min-width:0;padding:4px 8px;font-size:16px;background:var(--card);color:var(--tx)">🔊</button></h1>
-<div class="topbar"><button id="nbBtn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2 3 13h6v9h6v-9h6z" fill="#2ecc71" stroke="#0b2d17" stroke-width="1.5" stroke-linejoin="round"/></svg>Улучшения</button> <button id="menuBtn" style="background:#4a4f66">☰ Меню</button><div class="small pconly">Tab — улучшения · Esc — меню · Сено собираем левой кнопкой мыши (ЛКМ), всё остальное тоже ЛКМ</div></div>
+<div class="topbar"><button id="nbBtn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2 3 13h6v9h6v-9h6z" fill="#2ecc71" stroke="#0b2d17" stroke-width="1.5" stroke-linejoin="round"/></svg>Улучшения</button> <button id="bestBtn" style="background:#7a4fb0">📖 Бестиарий</button> <button id="menuBtn" style="background:#4a4f66">☰ Меню</button><div class="small pconly">Tab — улучшения · Esc — меню · Сено собираем левой кнопкой мыши (ЛКМ), всё остальное тоже ЛКМ</div></div>
 <div class="stats"><span>🌾 Сено: <span id="hay">0</span></span><span id="ps">0/сек</span></div>
 <div class="bar"><i id="bar"></i></div>
 <div class="small">Осталось в стоге: <span id="left"></span></div>
 <div id="field"><canvas id="cv"></canvas></div>
+
 <div id="menu"><canvas id="mcv"></canvas><div id="mbox">
 <div id="ttl"><span class="a">Игла</span><span class="b">в стоге сена</span>
 <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet"><path d="M52 184 C8 220 -24 150 24 134 S86 124 64 96" stroke="#e4572e" stroke-width="3.5" fill="none" stroke-linecap="round"/><line x1="40" y1="190" x2="362" y2="46" stroke="#3b2f14" stroke-width="10" stroke-linecap="round"/><line x1="40" y1="190" x2="362" y2="46" stroke="#e8eef5" stroke-width="5.5" stroke-linecap="round"/><line x1="48" y1="184" x2="352" y2="48" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="54" cy="184" rx="9" ry="3.6" transform="rotate(-24 54 184)" fill="#3b2f14"/></svg></div>
-<div id="mbtns"><button id="mCont">▶ Продолжить</button><button id="mNew">✨ Новая игра</button><button id="mSet">⚙️ Настройки</button><button id="mExit">🚪 Выйти</button></div>
-<div id="sets"><h2 style="margin:0;text-align:center">⚙️ Настройки</h2><label>🔊 Общая громкость<input type="range" id="sVol" min="0" max="100"></label><label>🎵 Музыка<input type="range" id="sMus" min="0" max="100"></label><button id="sDev">📱💻 Сменить устройство</button><button id="sBack" style="background:#6b6a8a">← Назад</button></div>
+<div id="mbtns"><button id="mCont">▶ Продолжить</button><button id="mNew">✨ Новая игра</button><div class="soon"><span>скоро!</span><button id="mMp" disabled>👥 Мультиплеер</button></div><button id="mSet">⚙️ Настройки</button><button id="mExit">🚪 Выйти</button></div>
+<div id="sets"><h2 style="margin:0;text-align:center">⚙️ Настройки</h2><label>🔊 Общая громкость<input type="range" id="sVol" min="0" max="100"></label><label>🎵 Музыка<input type="range" id="sMus" min="0" max="100"></label><button id="sDev">📱💻 Сменить устройство</button><button id="sCred">👥 Авторы</button><button id="sBack" style="background:#6b6a8a">← Назад</button></div>
+<div id="cred"><h2 style="margin:0">👥 Авторы</h2><div class="cr"><b>Dmitriy baranov</b><span>Главный разработчик, идея, геймплей</span></div><div class="cr"><b>konstantin pantelev</b><span>бета тестер, спонсор</span></div><div class="cr"><b>Alexander doshik</b><span>бета тестер, первый игрок, спонсор</span></div><small>игра сделана с помощью ИИ</small><button id="cBack" style="background:#6b6a8a">← Назад</button></div>
 </div></div>
 <div id="bye" style="display:none;position:fixed;inset:0;z-index:10;background:#1c1810;color:#f3e8c8;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px"><div style="font-size:60px">👋</div><h2 style="margin:0">Спасибо за игру!</h2><p style="margin:0">Прогресс сохранён. Можешь закрыть вкладку.</p><button id="byeBtn">В меню</button></div>
 <div id="dev"><h1 style="font-size:28px">🪡 Игла в стоге сена</h1><p>На чём играешь?</p><button id="dMob">📱 Телефон</button><button id="dPc">💻 ПК</button></div>
-<div id="book"><div id="paper"><div id="thead"><h1>Улучшения</h1><div class="hy">🌾 <span id="nh">0</span></div><button id="nbClose">✖</button></div><div id="pcont"><div id="cv2"><svg id="tsvg"></svg><div id="tnodes"></div></div></div><div id="info"><div id="ii" style="font-size:34px"></div><div class="tx" id="it"></div><button id="ibuy">🌾</button></div><div class="small pconly" style="padding:4px 0 8px">Tab / Esc — закрыть · тащи дерево мышью · покупать — ЛКМ</div></div></div>
+<div id="book"><div id="paper"><div id="thead"><h1>Улучшения</h1><div class="hy">🌾 <span id="nh">0</span></div><button id="jR">✋</button><button id="jF">🌱</button><button id="nbClose">✖</button></div><div id="pcont"><div id="cv2"><svg id="tsvg"></svg><div id="tnodes"></div></div></div><div id="info"><div id="ii" style="font-size:34px"></div><div class="tx" id="it"></div><button id="ibuy">🌾</button></div><div class="small pconly" style="padding:4px 0 8px">Tab / Esc — закрыть · тащи дерево мышью · покупать — ЛКМ</div></div></div>
+<div id="best"><div id="bpanel"><h2 style="margin:0">📖 Бестиарий сена</h2><div class="small" id="bcnt"></div><div id="blist"></div><button id="bclose">Закрыть</button></div></div>
 <div id="win"><div><div class="big">🪡</div><h2>Ты нашёл иглу!</h2><p id="wt"></p><button id="again">Играть снова</button></div></div>
 <script>
-const TOTAL=60000;
+const TOTAL=180000;
 const NODES=[];
-const addN=(id,p,pn,x,y,ic,n,d,c,k)=>NODES.push({id,p,pn,x,y,ic,n,d,c:Array.isArray(c)?c:[c],k:k||"",max:Array.isArray(c)?c.length:1});
+const addN=(id,p,pn,x,y,ic,n,d,c,k)=>NODES.push({id,p,pn,x,y,ic,n,d,c:(Array.isArray(c)?c:[c]).map(v=>v*3),k:k||"",max:Array.isArray(c)?c.length:1});
 const chain=(id,p,x,y,dx,dy,ic,name,d,costs,off)=>costs.forEach((c,i)=>addN(id+(i+1),i?id+i:p,(i||p!=="R")?1:0,x+dx*i,y+dy*i,ic,name+" "+(i+(off||1)),d,c));
 addN("R",null,0,700,700,"✋","Рука","Сила клика: 1 → 2 → 4 → 8 → 15 → 30 сена. Открывает все ветки",[15,60,250,900,3000],"big");
 chain("U","R",700,610,0,-90,"🍀","Удача","Шанс крита (×5): 5% → 10% → 15% → 20% → 30%",[50,200,700,2200,6000]);
@@ -162,38 +179,60 @@ addN("UG","U2",1,800,520,"🌟","Золотая удача","Крит бьёт �
 addN("UD","UG",1,900,520,"💎","Алмазная удача","Крит бьёт в 5 раз сильнее (×25)",18000,"dia");
 addN("UJ","U5",1,680,160,"🎰","Джекпот","3% шанс, что клик даст ×25",3500,"uni");
 addN("UN","U5",1,780,160,"🌠","Ночная удача","Ночью шанс крита +15%",3000,"uni");
-addN("D","R",0,580,700,"🚁","Дрон-помощник","Дрон сам собирает сено",30);
+addN("D","R",0,580,700,"🚁","Дрон-помощник","Дрон сам собирает сено. В шторм дроны ломаются: жми на них, чтобы починить!",30);
 chain("S","D",580,610,0,-90,"💪","Сила дрона","Каждый дрон: 1 → 2 → 3 → 5 → 8 → 12 сена/сек",[60,220,700,2000,5500]);
 chain("C","D",490,700,-90,0,"🚁","Дрон","+1 дрон в рое",[100,350,1000,2800],2);
-addN("DG","C1",1,400,790,"🌟","Золотой дрон","Все дроны в 2 раза эффективнее",5000,"gold");
-addN("DD","DG",1,310,790,"💎","Алмазный дрон","Все дроны в 5 раз эффективнее",18000,"dia");
+addN("DG","C1",1,400,790,"🌟","Золотой дрон","Все дроны становятся золотыми и в 2 раза эффективнее",5000,"gold");
+addN("DD","DG",1,310,790,"💎","Алмазный дрон","Все дроны становятся алмазными и в 5 раз эффективнее",18000,"dia");
 addN("DO","S5",1,490,160,"⚡","Перегрузка","Каждые 20 с дроны работают ×3 в течение 5 с",4000,"uni");
 addN("DN","S5",1,580,160,"🌙","Ночной дозор","Ночью дроны работают ×2",3000,"uni");
-addN("Z","R",0,700,810,"🔴","Лазер","Периодически бьёт по стогу",120);
+addN("Z","R",0,700,810,"🛸","Тарелка-лазер","Летающая тарелка вылетает сверху и бьёт по стогу",120);
 chain("P","Z",700,900,0,90,"💥","Мощь лазера","Урон: 40 → 100 → 220 → 450 → 900 → 1800, перезарядка короче",[150,500,1400,3500,8000]);
-addN("ZG","Z",1,610,810,"🌟","Золотой лазер","Урон лазера ×2",6000,"gold");
-addN("ZD","ZG",1,520,810,"💎","Алмазный лазер","Урон лазера ×5",20000,"dia");
-addN("ZB","P5",1,640,1350,"🔱","Двойной луч","Лазер бьёт сразу двумя лучами",4000,"uni");
+addN("ZG","Z",1,610,810,"🌟","Золотая тарелка","Тарелка становится золотой, урон ×2",6000,"gold");
+addN("ZD","ZG",1,520,810,"💎","Алмазная тарелка","Тарелка становится алмазной, урон ×5",20000,"dia");
+addN("ZB","P5",1,640,1350,"🔱","Двойной луч","Тарелка бьёт сразу двумя лучами",4000,"uni");
 addN("ZO","P5",1,760,1350,"☄️","Орбитальный удар","Каждый 5-й выстрел в 10 раз сильнее",6000,"uni");
-chain("T","R",790,700,90,0,"🛒","Тележка","Весь доход: ×1.25 → ×1.5 → ×2 → ×2.5 → ×3",[100,400,1500,4000,9000]);
-addN("TG","T2",1,880,610,"🌟","Золотая тележка","Весь доход ещё ×2",8000,"gold");
-addN("TD","TG",1,970,610,"💎","Алмазная тележка","Весь доход ×5 (вместо ×2)",25000,"dia");
-addN("RH","R",3,790,790,"🔥","Горячая рука","Быстрые клики подряд копят бонус до +100%",1500,"uni");
-addN("RD","R",3,880,790,"👏","Двойной клик","15% шанс, что клик сработает дважды",2500,"uni");
+chain("T","R",790,700,90,0,"🛒","Тележка","Весь доход: ×1.25 → ×1.5 → ×2 → ×2.5 → ×3. Тележка появляется у стога",[100,400,1500,4000,9000]);
+addN("TG","T2",1,880,610,"🌟","Золотая тележка","Тележка становится золотой, доход ×2",8000,"gold");
+addN("TD","TG",1,970,610,"💎","Алмазная тележка","Тележка становится алмазной, доход ×5 (вместо ×2)",25000,"dia");
+addN("H","R",1,790,790,"🧰","Инструменты","Открывает лопату, скорость и прибыль",150);
+chain("L","H",880,790,90,0,"⛏","Лопата","Больше сена за клик: ×1.3 → ×1.7 → ×2.2 → ×3 → ×4",[200,600,1600,4000,9000]);
+addN("LG","L5",1,1330,790,"🌟","Золотая лопата","Лопата становится золотой, клик ×2",8000,"gold");
+addN("LD","LG",1,1420,790,"💎","Алмазная лопата","Лопата становится алмазной, клик ×5",25000,"dia");
+chain("V","H",790,880,0,90,"⚡","Скорость","Удерживай палец или кнопку: автоклики 2 → 3 → 4 → 6 → 8 в секунду",[250,700,1800,4200,9500]);
+chain("Q","H",880,880,90,90,"💰","Прибыль","Весь доход: +10% → +20% → +35% → +50% → +75%",[300,900,2200,5000,11000]);
+addN("RH","V5",1,880,1330,"🔥","Горячая рука","Быстрые клики подряд копят бонус до +100%",1500,"uni");
+addN("RD","V5",1,970,1330,"👏","Двойной клик","15% шанс, что клик сработает дважды",2500,"uni");
+addN("F",null,0,1100,520,"🌱","Ферма","Новый корень: пассивный доход, редкое сено и сюрпризы",100);
+chain("W","F",1100,430,0,-90,"🧑‍🌾","Фермер","Фермеры сами собирают: 2 → 5 → 10 → 20 → 40 сена/сек",[150,500,1500,4000,9000]);
+chain("N","F",1190,520,90,0,"👃","Нюх","Редкое сено (золотое, алмазное, радужное) выпадает чаще",[200,700,2000,5000,11000]);
+addN("FG","W2",1,1190,340,"🌟","Золотые фермеры","Фермеры работают в 2 раза лучше",8000,"gold");
+addN("FD","FG",1,1280,340,"💎","Алмазные фермеры","Фермеры работают в 5 раз лучше",25000,"dia");
+addN("FS","F",1,1010,520,"☀️","Сушилка","Мокрое сено больше не встречается",2500,"uni");
+addN("FH","W5",1,1010,70,"⏰","Золотой час","Каждые 60 с на 10 с весь доход ×2",5000,"uni");
+addN("FT","W5",1,1190,70,"🎁","Тайник","Каждые 45 с находка: бонус сена",4500,"uni");
+
 let S,acc=0;
 const $=id=>document.getElementById(id);
-function reset(){gen();S={left:TOTAL,hay:0,lv:{},dayT:0,t:Date.now()};$("win").style.display="none";build();draw()}
+function reset(){gen();S={left:TOTAL,hay:0,lv:{},dayT:0,found:{},t:Date.now()};$("win").style.display="none";build();draw()}
 const own=id=>(S.lv[id]||0)>0;
 const cnt=(pre,n)=>{let c=0;for(let i=1;i<=n;i++)if(own(pre+i))c++;return c};
 const tier=(g,d)=>own(d)?5:own(g)?2:1;
 const isNight=()=>light()<.35;
 const lInt=()=>[9,8,6.5,5,4,3][cnt("P",5)];
 const nodeById=id=>NODES.find(x=>x.id===id);
+const HT=[{n:"Мокрое",ic:"💧",m:.5,c:"#6f7f5c",d:"Тяжёлое и сырое. Даёт мало."},{n:"Обычное",ic:"🌾",m:1,c:"#d9b45a",d:"Самая обычная солома."},{n:"Золотое",ic:"🌟",m:3,c:"#ffd24a",d:"Блестит на солнце."},{n:"Алмазное",ic:"💎",m:8,c:"#6fe8ff",d:"Твёрдое, как кристалл."},{n:"Радужное",ic:"🌈",m:25,c:"#ff7be5",d:"Легенда среди сена."}];
+function hayW(){const w=[25,60,10,4,1],k=cnt("N",5);if(own("FS")){w[1]+=w[0];w[0]=0}w[1]-=k*3.4;w[2]+=k*2;w[3]+=k;w[4]+=k*.4;return w}
+function rollHay(){const w=hayW();let r=Math.random()*w.reduce((a,b)=>a+b,0);for(let i=0;i<5;i++){r-=w[i];if(r<0)return i}return 1}
+function EM(){const w=hayW(),t=w.reduce((a,b)=>a+b,0);return w.reduce((a,x,i)=>a+x*HT[i].m,0)/t}
 function val(id){
- if(id==="m")return [1,1.25,1.5,2,2.5,3][cnt("T",5)]*tier("TG","TD");
- if(id==="h")return [1,2,4,8,15,30][S.lv.R||0];
+ if(id==="m")return [1,1.25,1.5,2,2.5,3][cnt("T",5)]*tier("TG","TD")*[1,1.1,1.2,1.35,1.5,1.75][cnt("Q",5)]*((S.gh||0)>performance.now()/1000?2:1);
+ if(id==="h")return [1,2,4,8,15,30][S.lv.R||0]*[1,1.3,1.7,2.2,3,4][cnt("L",5)]*tier("LG","LD");
  if(id==="k")return [0,.05,.1,.15,.2,.3][cnt("U",5)]+(own("UN")&&isNight()?.15:0);
- if(id==="a"){if(!own("D"))return 0;let r=(1+cnt("C",4))*[1,2,3,5,8,12][cnt("S",5)]*tier("DG","DD");if(own("DN")&&isNight())r*=2;if((S.ovl||0)>performance.now()/1000)r*=3;return r}
+ if(id==="a"){let r=0;
+  if(own("D")){const dl=drones.length,ok=dl?drones.filter(d=>!d.broken).length/dl:1;r=(1+cnt("C",4))*[1,2,3,5,8,12][cnt("S",5)]*tier("DG","DD");if(own("DN")&&isNight())r*=2;if((S.ovl||0)>performance.now()/1000)r*=3;r*=ok}
+  if(own("F"))r+=[0,2,5,10,20,40][cnt("W",5)]*tier("FG","FD");
+  return r}
  return 0}
 let sel="R",tCent=false;
 function unl(n){const p=n.p&&nodeById(n.p);return !p||(S.lv[p.id]||0)>=n.pn}
@@ -248,7 +287,7 @@ function draw(){
  $("hay").textContent=Math.floor(S.hay).toLocaleString("ru");
  $("left").textContent=Math.ceil(S.left).toLocaleString("ru");
  $("bar").style.width=(S.left/TOTAL*100)+"%";$("nh").textContent=Math.floor(S.hay).toLocaleString("ru");
- $("ps").textContent=(val("a")*val("m")).toFixed(1).replace(".0","")+"/сек";
+ $("ps").textContent=(val("a")*val("m")*EM()).toFixed(1).replace(".0","")+"/сек";
  drawPile();
  if(nbOn)refreshTree();
 }
@@ -257,21 +296,35 @@ function float(x,y,t,crit){
  e.style.left=x+"px";e.style.top=y+"px";$("field").appendChild(e);setTimeout(()=>e.remove(),800);
 }
 $("field").addEventListener("contextmenu",e=>e.preventDefault());
-$("field").addEventListener("pointerdown",e=>{
- if(!DEV||inMenu||e.button!==0||nbOn||S.left<=0)return;
+let holdT=0,hx=0,hy=0;
+function clickAt(cx,cy){
+ if(!DEV||inMenu||nbOn||bestOn||S.left<=0)return;
+ for(const dr of drones){if(dr.broken&&Math.hypot(cx-dr.x,cy-dr.y)<56){dr.fix=(dr.fix||0)+1;fx.push({k:0,x:dr.x,y:dr.y,life:14,max:14,R:30,c:"120,220,255"});snd(600+dr.fix*120,.08,"square",.07);if(dr.fix>=4){dr.broken=false;dr.fix=0;dr.next=0;float(dr.x-24,dr.y-30,"🔧 Починен!",true);snd(880,.25,"triangle",.1,1320)}return}}
  let n=val("h")*val("m"),crit=Math.random()<val("k"),tc=performance.now();
  if(own("RH")){S.combo=(tc-(S.lc||0)<600)?Math.min(20,(S.combo||0)+1):0;S.lc=tc;n*=1+S.combo*.05}
  if(crit)n*=5*tier("UG","UD");
  if(own("UJ")&&Math.random()<.03){n*=25;crit=true;snd(660,.4,"square",.08,1320)}
  if(own("RD")&&Math.random()<.15)n*=2;
+ const ht=rollHay();n*=HT[ht].m;
+ if(!S.found)S.found={};
+ if(!S.found[ht]){S.found[ht]=1;float(10,60,"📖 Новое сено: "+HT[ht].n+" "+HT[ht].ic,true);snd(880,.3,"triangle",.12,1760);if(ht>=3)noise(.3,.2,2000)}
  n=Math.round(n*10)/10;
- const r=$("field").getBoundingClientRect();
- float(e.clientX-r.left-10,e.clientY-r.top-20,"+"+n+(crit?" 💥":""),crit);
+ float(cx-10,cy-20,"+"+n+(ht>=2?" "+HT[ht].ic:"")+(crit?" 💥":""),crit||ht>=3);
  const f=$("field");f.classList.add("hit");setTimeout(()=>f.classList.remove("hit"),80);
- burst(e.clientX-r.left,e.clientY-r.top,crit);take(n);fling(crit?6:2);draw();
+ burst(cx,cy,crit);take(n);fling(crit?6:2,HT[ht].c);draw();
+}
+$("field").addEventListener("pointerdown",e=>{
+ if(e.button!==0)return;
+ const r=$("field").getBoundingClientRect();hx=e.clientX-r.left;hy=e.clientY-r.top;
+ clickAt(hx,hy);
+ const sp=[0,2,3,4,6,8][cnt("V",5)];
+ clearInterval(holdT);if(sp>0)holdT=setInterval(()=>clickAt(hx+(Math.random()-.5)*30,hy+(Math.random()-.5)*30),1000/sp);
 });
+$("field").addEventListener("pointermove",e=>{const r=$("field").getBoundingClientRect();hx=e.clientX-r.left;hy=e.clientY-r.top});
+addEventListener("pointerup",()=>clearInterval(holdT));
+addEventListener("pointercancel",()=>clearInterval(holdT));
 setInterval(()=>{
- const a=val("a")*val("m")*0.1;
+ const a=val("a")*val("m")*EM()*0.1;
  if(a>0&&S.left>0&&!inMenu){take(a);draw()}
 },100);
 let sticks=[],parts=[],fx=[],drones=[],shake=0;const NS=1400;
@@ -307,7 +360,7 @@ function gen(){
 function el(g,x,y,rx,ry){g.beginPath();g.ellipse(x,y,rx,ry,0,0,6.3);g.fill()}
 function line(g,x,y,a,l){g.beginPath();g.moveTo(x-Math.cos(a)*l/2,y-Math.sin(a)*l/2);g.lineTo(x+Math.cos(a)*l/2,y+Math.sin(a)*l/2);g.stroke()}
 function burst(x,y,crit){
- fx.push({k:0,x,y,life:18,max:18,R:crit?80:42,c:crit?"255,90,54":"255,246,192"});
+ fx.push({k:0,x,y,life:18,max:18,R:crit?80:42,c:crit?(own("UD")?"94,230,255":own("UG")?"255,210,74":"255,90,54"):"255,246,192"});
  const n=crit?18:8;
  for(let i=0;i<n;i++){const a=Math.random()*6.28,v=2+Math.random()*(crit?7:4);fx.push({k:1,x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,life:26,c:crit?`hsl(${10+Math.random()*30|0},95%,60%)`:`hsl(${40+Math.random()*12|0},80%,${55+Math.random()*20|0}%)`})}
  shake=crit?9:2.5;if(DEV==="mob"&&navigator.vibrate)navigator.vibrate(crit?30:8);
@@ -349,33 +402,63 @@ function drawPile(now){
  g.lineWidth=2.6;
  for(const p of parts){g.strokeStyle=p.c;g.globalAlpha=Math.max(0,p.life/40);line(g,p.x,p.y,p.a,p.l)}
  g.globalAlpha=1;
+ if(own("T1")){const tt=tier("TG","TD"),cx=bx+pw*.95,cy=by+2,cc=tt===5?"#1aa8c9":tt===2?"#c9961a":"#8a5a2b";g.fillStyle=cc;g.beginPath();g.moveTo(cx-20,cy-22);g.lineTo(cx+22,cy-22);g.lineTo(cx+14,cy-4);g.lineTo(cx-12,cy-4);g.fill();g.fillStyle="#d9b45a";el(g,cx+1,cy-24,18,5);g.fillStyle="#333";g.beginPath();g.arc(cx,cy-1,6,0,6.3);g.fill();g.strokeStyle=cc;g.lineWidth=3;g.beginPath();g.moveTo(cx-18,cy-20);g.lineTo(cx-34,cy-30);g.stroke();if(tt>1){g.fillStyle=tt===5?"rgba(120,240,255,.3)":"rgba(255,220,90,.3)";el(g,cx,cy-14,30,18)}}
+ if(own("L1")){const st=tier("LG","LD"),qx=bx-pw*1.0,qy=by-2,sc=st===5?"#7df3ff":st===2?"#ffd24a":"#9aa4ad";g.strokeStyle="#8a5a2b";g.lineWidth=4;g.beginPath();g.moveTo(qx,qy);g.lineTo(qx+8,qy-52);g.stroke();g.fillStyle=sc;g.beginPath();g.moveTo(qx-9,qy+2);g.lineTo(qx+9,qy+2);g.lineTo(qx+6,qy+20);g.lineTo(qx-6,qy+20);g.fill()}
  g.fillStyle=`rgba(8,14,44,${.45*(1-lt)})`;g.fillRect(-20,-20,w+40,h+40);
  const nd=own("D")?1+cnt("C",4):0;
  while(drones.length<nd)drones.push({x:w*Math.random(),y:-20,tx:bx,ty:by-ph*.6,next:0,grab:0,beam:0,done:true,ph:Math.random()*6});
  drones.length=Math.min(drones.length,nd);
+ const dtr=tier("DG","DD"),dc1=dtr===5?"#0f6f86":dtr===2?"#a87408":"#2f3a48",dc2=dtr===5?"#7df3ff":dtr===2?"#ffe066":"#5fb8ff";
+ if(storm.on){
+  g.fillStyle="rgba(10,16,40,.35)";g.fillRect(0,0,w,h);
+  g.strokeStyle="rgba(180,200,255,.45)";g.lineWidth=1;g.beginPath();
+  for(let i=0;i<70;i++){const rx=(i*83.7+now*500)%(w+60)-30,ry=((i*47.3+now*900)%(h+40))-20;g.moveTo(rx,ry);g.lineTo(rx-5,ry+14)}
+  g.stroke();
+  if(now>storm.flash+1.5&&Math.random()<.01){storm.flash=now+.12;noise(.7,.35,200);snd(70,.9,"sawtooth",.1,35)}
+  if(now<storm.flash){g.fillStyle="rgba(255,255,255,.55)";g.fillRect(0,0,w,h)}
+ }
  drones.forEach(dr=>{
-  if(now>dr.next){dr.tx=bx+(Math.random()-.5)*pw*1.5;dr.ty=by-ph*(.25+.65*Math.sqrt(r))-14-Math.random()*26;dr.next=now+1.4+Math.random();dr.grab=now+.8;dr.done=false}
+  if(storm.on&&!dr.broken&&Math.random()<.006){dr.broken=true;dr.fix=0;for(let j=0;j<8;j++)fx.push({k:1,x:dr.x,y:dr.y,vx:(Math.random()-.5)*6,vy:-Math.random()*4,life:26,c:"#ffb347"});snd(120,.4,"sawtooth",.1,40);float(dr.x-30,dr.y-10,"⚠️ Дрон сломан!",true)}
+  if(dr.broken){dr.tx=dr.x;dr.ty=by-6}
+  else if(now>dr.next){dr.tx=bx+(Math.random()-.5)*pw*1.5;dr.ty=by-ph*(.25+.65*Math.sqrt(r))-14-Math.random()*26;dr.next=now+1.4+Math.random();dr.grab=now+.8;dr.done=false}
   dr.x+=(dr.tx-dr.x)*.05;dr.y+=(dr.ty-dr.y)*.05;
-  if(!dr.done&&now>dr.grab){dr.done=true;dr.beam=now+.3;
+  if(!dr.broken&&!dr.done&&now>dr.grab){dr.done=true;dr.beam=now+.3;
    for(let j=0;j<3;j++){const s=sticks[Math.floor(Math.random()*sticks.length)];parts.push({x:dr.x+(Math.random()-.5)*20,y:dr.y+30,vx:(Math.random()-.5)*1.5,vy:-3-Math.random()*2,a:s.a,l:s.l,c:s.c,life:34,va:.2})}
    snd(900,.08,"sine",.04,500)}
-  const yy=dr.y+Math.sin(now*3+dr.ph)*3;
-  if(now<dr.beam){g.fillStyle="rgba(255,240,150,.38)";g.beginPath();g.moveTo(dr.x-5,yy+8);g.lineTo(dr.x-28,yy+58);g.lineTo(dr.x+28,yy+58);g.lineTo(dr.x+5,yy+8);g.fill()}
-  if(lt<.7){g.fillStyle=`rgba(255,240,170,${.3*(1-lt)})`;g.beginPath();g.moveTo(dr.x-4,yy+8);g.lineTo(dr.x-30,by+10);g.lineTo(dr.x+30,by+10);g.lineTo(dr.x+4,yy+8);g.fill()}
+  const yy=dr.y+(dr.broken?0:Math.sin(now*3+dr.ph)*3);
+  if(!dr.broken&&now<dr.beam){g.fillStyle="rgba(255,240,150,.38)";g.beginPath();g.moveTo(dr.x-5,yy+8);g.lineTo(dr.x-28,yy+58);g.lineTo(dr.x+28,yy+58);g.lineTo(dr.x+5,yy+8);g.fill()}
+  if(!dr.broken&&lt<.7){g.fillStyle=`rgba(255,240,170,${.3*(1-lt)})`;g.beginPath();g.moveTo(dr.x-4,yy+8);g.lineTo(dr.x-30,by+10);g.lineTo(dr.x+30,by+10);g.lineTo(dr.x+4,yy+8);g.fill()}
+  if(dtr>1){g.fillStyle=dtr===5?"rgba(120,240,255,.25)":"rgba(255,220,90,.25)";el(g,dr.x,yy,28,14)}
   g.fillStyle="rgba(0,0,0,.18)";el(g,dr.x,by+10,14,4);
-  g.fillStyle="#2f3a48";el(g,dr.x,yy,17,7);
-  g.fillStyle="#5fb8ff";g.beginPath();g.arc(dr.x,yy-2,8,3.14,6.28);g.fill();
-  g.fillStyle=Math.sin(now*10)>0?"#ff3b3b":"#7a1b1b";g.beginPath();g.arc(dr.x,yy+3,2,0,6.3);g.fill();
+  g.fillStyle=dc1;el(g,dr.x,yy,17,7);
+  g.fillStyle=dc2;g.beginPath();g.arc(dr.x,yy-2,8,3.14,6.28);g.fill();
+  g.fillStyle=(dr.broken||Math.sin(now*10)>0)?"#ff3b3b":"#7a1b1b";g.beginPath();g.arc(dr.x,yy+3,2,0,6.3);g.fill();
   g.strokeStyle="#1d242e";g.lineWidth=2;g.beginPath();g.moveTo(dr.x-14,yy-4);g.lineTo(dr.x-22,yy-8);g.moveTo(dr.x+14,yy-4);g.lineTo(dr.x+22,yy-8);g.stroke();
-  const rl=14*Math.abs(Math.cos(now*45));g.strokeStyle="rgba(40,50,60,.8)";g.lineWidth=2.5;
+  const rl=dr.broken?3:14*Math.abs(Math.cos(now*45));g.strokeStyle="rgba(40,50,60,.8)";g.lineWidth=2.5;
   g.beginPath();g.moveTo(dr.x-22-rl,yy-9);g.lineTo(dr.x-22+rl,yy-9);g.moveTo(dr.x+22-rl,yy-9);g.lineTo(dr.x+22+rl,yy-9);g.stroke();
+  if(dr.broken){
+   if(Math.random()<.25)fx.push({k:1,x:dr.x+(Math.random()-.5)*10,y:yy-6,vx:(Math.random()-.5),vy:-1.6,life:26,c:"#8a8a8a"});
+   g.font="bold 13px system-ui";g.textAlign="center";g.fillStyle="#ff5a5a";g.fillText("ЖМИ! "+(4-(dr.fix||0)),dr.x,yy-26);
+   g.strokeStyle="rgba(255,90,90,"+(.4+.4*Math.sin(now*10))+")";g.lineWidth=2;g.beginPath();g.arc(dr.x,yy,26,0,6.3);g.stroke()
+  }
  });
  if(own("Z")){
-  const mx=w*.12,my=by-12,tx=L.end?L.x:bx,ty=L.end?L.y:by-ph*.3,ang=Math.atan2(ty-my,tx-mx),fr=Math.max(0,Math.min(1,1-((S.lNext||now)-now)/lInt())),ex=mx+Math.cos(ang)*24,ey=my+Math.sin(ang)*24;
-  g.fillStyle="#3a4350";g.fillRect(mx-12,my+2,24,12);g.beginPath();g.arc(mx,my+2,9,3.14,6.28);g.fill();
-  g.strokeStyle="#59647a";g.lineWidth=7;g.beginPath();g.moveTo(mx,my);g.lineTo(ex,ey);g.stroke();
-  g.fillStyle=`rgba(255,70,70,${.25+.65*fr})`;g.beginPath();g.arc(ex,ey,3+8*fr,0,6.3);g.fill();
-  if(now<L.end){for(const q of L.pts){g.strokeStyle="rgba(255,50,50,.55)";g.lineWidth=9;g.beginPath();g.moveTo(ex,ey);g.lineTo(q[0],q[1]);g.stroke();g.strokeStyle="#fff";g.lineWidth=3;g.beginPath();g.moveTo(ex,ey);g.lineTo(q[0],q[1]);g.stroke()}}
+  const ut=tier("ZG","ZD"),want=(S.lNext&&S.lNext-now<1.3)||now<U.stay;
+  if(want&&!U.was)snd(200,.5,"sine",.08,700);U.was=want;
+  if(!U.x)U.x=bx;U.tx=bx+Math.sin(now*.7)*pw*.5;U.ty=want?h*.2:-90;
+  U.x+=(U.tx-U.x)*.06;U.y+=(U.ty-U.y)*.06;
+  const ux=U.x,uy=U.y+(want?Math.sin(now*3)*4:0),fr=Math.max(0,Math.min(1,1-((S.lNext||now)-now)/1.3));
+  if(uy>-50){
+   const c1=ut===5?"#7df3ff":ut===2?"#ffe066":"#d5dde6",c2=ut===5?"#1aa8c9":ut===2?"#c9961a":"#6b7a8c";
+   if(ut>1){g.fillStyle=ut===5?"rgba(120,240,255,.22)":"rgba(255,220,90,.22)";el(g,ux,uy,66,28)}
+   const gr=g.createLinearGradient(0,uy-14,0,uy+14);gr.addColorStop(0,c1);gr.addColorStop(1,c2);
+   g.fillStyle=c2;el(g,ux,uy+8,30,8);
+   g.fillStyle=gr;el(g,ux,uy,52,14);
+   g.fillStyle="rgba(150,255,225,.6)";g.beginPath();g.ellipse(ux,uy-6,20,16,0,3.14,6.28);g.fill();
+   for(let i=0;i<6;i++){g.fillStyle=Math.sin(now*8+i*1.3)>0?"#fff6a8":"#ff7b7b";g.beginPath();g.arc(ux-40+i*16,uy+(i%2?3:0),2.6,0,6.3);g.fill()}
+   g.fillStyle=`rgba(255,70,70,${.25+.65*fr})`;g.beginPath();g.arc(ux,uy+17,4+10*fr,0,6.3);g.fill();
+   if(now<L.end){for(const q of L.pts){g.strokeStyle="rgba(255,50,50,.55)";g.lineWidth=12;g.beginPath();g.moveTo(ux,uy+17);g.lineTo(q[0],q[1]);g.stroke();g.strokeStyle="#fff";g.lineWidth=4;g.beginPath();g.moveTo(ux,uy+17);g.lineTo(q[0],q[1]);g.stroke()}}
+  }
  }
  for(const e of fx){
   if(!e.k){g.strokeStyle=`rgba(${e.c},${e.life/e.max})`;g.lineWidth=3;g.beginPath();g.arc(e.x,e.y,e.R*(1-e.life/e.max)+4,0,6.3);g.stroke()}
@@ -383,14 +466,14 @@ function drawPile(now){
  }
  g.restore();
 }
-function fling(n){
+function fling(n,col){
  const cv=$("cv"),w=cv.clientWidth,h=cv.clientHeight,r=S.left/TOTAL;
  for(let i=0;i<n;i++){
   const s=sticks[Math.floor(Math.random()*sticks.length)];
-  parts.push({x:w/2+(Math.random()-.5)*w*.4,y:h-34-h*.7*(.25+.6*Math.sqrt(r)),vx:(Math.random()-.5)*9,vy:-3-Math.random()*5,a:s.a,l:s.l,c:s.c,life:40,va:(Math.random()-.5)*.4});
+  parts.push({x:w/2+(Math.random()-.5)*w*.4,y:h-34-h*.7*(.25+.6*Math.sqrt(r)),vx:(Math.random()-.5)*9,vy:-3-Math.random()*5,a:s.a,l:s.l,c:col||s.c,life:40,va:(Math.random()-.5)*.4});
  }
 }
-const LI=[0,9,7,5,3.5,2.5];let L={x:0,y:0,end:0,pts:[]},DEV="",nbOn=false;
+const LI=[0,9,7,5,3.5,2.5];let L={x:0,y:0,end:0,pts:[]},DEV="",nbOn=false,bestOn=false,storm={on:false,end:0,next:0,flash:0},U={x:0,y:-90,tx:0,ty:-90,stay:0,was:false};
 function laserTick(){
  if(inMenu||!S||!own("Z")||S.left<=0)return;
  const now=performance.now()/1000,cv=$("cv"),w=cv.clientWidth,h=cv.clientHeight;
@@ -400,8 +483,8 @@ function laserTick(){
  const r=S.left/TOTAL,bx=w/2,by=h-34,pw=w*.42,ph=h*.7;
  const bm=own("ZB")?2:1;L.pts=[];
  for(let i=0;i<bm;i++){const x=bx+(Math.random()-.5)*pw*1.1,y=by-Math.random()*ph*.55*Math.sqrt(r)-6;L.pts.push([x,y]);fx.push({k:0,x,y,life:18,max:18,R:60,c:"255,70,70"})}
- L.x=L.pts[0][0];L.y=L.pts[0][1];L.end=now+.3;
- const n=Math.round([40,100,220,450,900,1800][cnt("P",5)]*tier("ZG","ZD")*bm*val("m")*((S.lshots=(S.lshots||0)+1)%5===0&&own("ZO")?10:1));fling(6+bm*2);float(L.x-10,L.y-10,"+"+n+" 🔴",true);
+ L.x=L.pts[0][0];L.y=L.pts[0][1];L.end=now+.3;U.stay=now+.9;
+ const n=Math.round([40,100,220,450,900,1800][cnt("P",5)]*tier("ZG","ZD")*bm*val("m")*EM()*((S.lshots=(S.lshots||0)+1)%5===0&&own("ZO")?10:1));fling(6+bm*2);float(L.x-10,L.y-10,"+"+n+" 🔴",true);
  snd(1400,.35,"sawtooth",.07,180);noise(.2,.25,800);
  take(n);draw();
 }
@@ -415,7 +498,7 @@ $("nbBtn").onclick=()=>nb(true);$("nbClose").onclick=()=>nb(false);
 $("book").addEventListener("pointerdown",e=>{if(e.target===$("book"))nb(false)});
 addEventListener("keydown",e=>{
  if(DEV!=="pc")return;
- if(e.key==="Tab"){e.preventDefault();if(!inMenu)nb(!nbOn)}else if(e.key==="Escape"){if(nbOn)nb(false);else if(!inMenu)showMenu();else if(setsOpen)openSets(false);else if(started)goGame()}
+ if(e.key==="Tab"){e.preventDefault();if(!inMenu)nb(!nbOn)}else if(e.key==="Escape"){if(bestOn)bestShow(false);else if(nbOn)nb(false);else if(!inMenu)showMenu();else if(setsOpen)openSets(false);else if(started)goGame()}
 });
 function pick(d){DEV=d;document.body.classList.remove("pc","mob");document.body.classList.add(d==="pc"?"pc":"mob");$("dev").style.display="none";ctx();snd(660,.12,"triangle",.1);setTimeout(()=>snd(880,.12,"triangle",.1),90);if(!inMenu)showMenu()}
 $("dPc").onclick=()=>pick("pc");$("dMob").onclick=()=>pick("mob");
@@ -442,9 +525,9 @@ function musicStop(){musicOn=false;clearInterval(mTimer);if(MU){const t=AC.curre
 function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function hasSave(){return !!lsGet(KS)}
-function save(){if(!started||!S)return;if(S.left<=0){try{localStorage.removeItem(KS)}catch(e){}return}lsSet(KS,JSON.stringify({left:S.left,hay:S.hay,lv:S.lv,el:Date.now()-S.t,dayT:S.dayT||0}))}
-function loadSave(){try{const d=JSON.parse(lsGet(KS));S.left=d.left;S.hay=d.hay;S.lv=Object.assign({},d.lv);S.t=Date.now()-d.el;S.lNext=0;S.dayT=d.dayT||0;build();draw()}catch(e){}}
-function openSets(o){setsOpen=o;$("sets").style.display=o?"flex":"none";$("mbtns").style.display=o?"none":"flex"}
+function save(){if(!started||!S)return;if(S.left<=0){try{localStorage.removeItem(KS)}catch(e){}return}lsSet(KS,JSON.stringify({left:S.left,hay:S.hay,lv:S.lv,el:Date.now()-S.t,dayT:S.dayT||0,found:S.found||{}}))}
+function loadSave(){try{const d=JSON.parse(lsGet(KS));S.left=d.left;S.hay=d.hay;S.lv=Object.assign({},d.lv);S.t=Date.now()-d.el;S.lNext=0;S.dayT=d.dayT||0;S.found=d.found||{};build();draw()}catch(e){}}
+function openSets(o){setsOpen=o;$("cred").style.display="none";$("sets").style.display=o?"flex":"none";$("mbtns").style.display=o?"none":"flex"}
 function showMenu(){save();inMenu=true;nb(false);$("menu").classList.add("show");openSets(false);$("mCont").disabled=!(started||hasSave());gmStop();musicStart()}
 function goGame(){if(!started){loadSave();started=true}inMenu=false;$("menu").classList.remove("show");musicStop();gmStart();draw()}
 $("mCont").onclick=goGame;
@@ -492,8 +575,16 @@ function drawMenuBg(){
  g.globalAlpha=1;
 }
 let lastT=performance.now(),gmOn=false,gmT=0,gbar=0;
-function tickDay(){const n=performance.now(),dt=Math.min(.1,(n-lastT)/1000);lastT=n;if(!S||!started||inMenu)return;S.dayT=(S.dayT||0)+dt;
- if(own("DO")){const t=n/1000;if(!S.ovlN)S.ovlN=t+8;if(t>=S.ovlN){S.ovl=t+5;S.ovlN=t+20;float(20,40,"⚡ ПЕРЕГРУЗКА ×3",true);snd(300,.5,"sawtooth",.07,900)}}}
+function tickDay(){
+ const n=performance.now(),dt=Math.min(.1,(n-lastT)/1000);lastT=n;if(!S||!started||inMenu)return;
+ const t=n/1000;S.dayT=(S.dayT||0)+dt;
+ if(own("DO")){if(!S.ovlN)S.ovlN=t+8;if(t>=S.ovlN){S.ovl=t+5;S.ovlN=t+20;float(20,40,"⚡ ПЕРЕГРУЗКА ×3",true);snd(300,.5,"sawtooth",.07,900)}}
+ if(own("FH")){if(!S.ghN)S.ghN=t+20;if(t>=S.ghN){S.gh=t+10;S.ghN=t+60;float(20,70,"⏰ ЗОЛОТОЙ ЧАС ×2",true);snd(660,.5,"triangle",.1,1320)}}
+ if(own("FT")){if(!S.chN)S.chN=t+30;if(t>=S.chN){S.chN=t+45;const b=Math.max(60,Math.round(40*val("a")*val("m")*EM()));take(b);float(20,100,"🎁 Тайник +"+b,true);snd(880,.3,"triangle",.1,1760);draw()}}
+ if(own("D")&&isNight()&&!storm.on&&t>=storm.next){storm.next=t+25;if(Math.random()<.35){storm.on=true;storm.end=t+22;float(10,40,"⛈ ШТОРМ! Чини дронов!",true);snd(80,1.2,"sawtooth",.1,40)}}
+ if(storm.on&&(t>storm.end||!isNight()))storm.on=false;
+ if(storm.on&&Math.random()<.04)noise(.12,.05,3500);
+}
 function light(){
  const t=((S&&S.dayT)||0)%460,e=x=>x*x*(3-2*x);
  if(t<180)return 1;if(t<300)return 1-e((t-180)/120);if(t<420)return 0;return e((t-420)/40);
@@ -515,6 +606,19 @@ function gameBar(){
 function gmLoop(){if(!gmOn)return;gameBar();gmT=setTimeout(gmLoop,(light()<.35?3.6:2)*1000-30)}
 function gmStart(){if(gmOn||!ctx())return;gmOn=true;setVol();gmLoop()}
 function gmStop(){gmOn=false;clearTimeout(gmT)}
+function bestShow(o){
+ bestOn=o;$("best").classList.toggle("show",o);
+ if(o){const w=hayW(),t=w.reduce((a,b)=>a+b,0),f=S.found||{};
+  $("bcnt").textContent="Найдено: "+Object.keys(f).length+" / 5";
+  $("blist").innerHTML=HT.map((h,i)=>f[i]?`<div class="hi"><div class="ic">${h.ic}</div><div><b>${h.n} (×${h.m})</b><small>${h.d}<br>Шанс сейчас: ${(w[i]/t*100).toFixed(1)}%</small></div></div>`:`<div class="hi un"><div class="ic">❓</div><div><b>???</b><small>Ещё не найдено</small></div></div>`).join("");
+  snd(500,.1,"triangle",.08)}
+}
+$("bestBtn").onclick=()=>bestShow(true);$("bclose").onclick=()=>bestShow(false);
+$("best").addEventListener("pointerdown",e=>{if(e.target===$("best"))bestShow(false)});
+function showCred(o){$("cred").style.display=o?"flex":"none";$("sets").style.display=o?"none":"flex"}
+$("sCred").onclick=()=>showCred(true);$("cBack").onclick=()=>showCred(false);
+function centerOn(x,y){const c=$("pcont");c.scrollTo({left:x-c.clientWidth/2,top:y-c.clientHeight/2,behavior:"smooth"})}
+$("jR").onclick=()=>centerOn(700,720);$("jF").onclick=()=>centerOn(1150,400);
 reset();step();
 </script>
 </body>
